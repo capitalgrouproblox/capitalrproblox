@@ -1,0 +1,419 @@
+from pathlib import Path
+import shutil, zipfile
+
+base = Path("/mnt/data/capital-rp-site")
+assets = base / "assets"
+assets.mkdir(parents=True, exist_ok=True)
+
+# Use the uploaded images as the site's logo/background assets.
+logo_src = Path("/mnt/data/cbc112b9-d520-4def-b276-a22c678476b2.png")
+bg_src = Path("/mnt/data/Captura de tela 2026-08-11 190232.png")
+
+shutil.copy2(logo_src, assets / "capital-logo.png")
+shutil.copy2(bg_src, assets / "capital-background.png")
+
+html = r'''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Capital RP — Uma nova experiência de Roleplay no Roblox.">
+  <title>CAPITAL RP | Roblox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: #050505;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.58) 48%, rgba(0,0,0,.86) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.15) 40%, #050505 100%),
+        url("assets/capital-background.png") center/cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 45%, transparent 0%, rgba(0,0,0,.38) 58%, rgba(0,0,0,.88) 100%);
+      pointer-events: none;
+    }
+
+    .noise {
+      position: absolute;
+      inset: 0;
+      opacity: .06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(0,0,0,.65), transparent);
+    }
+
+    .nav-brand {
+      font-weight: 900;
+      letter-spacing: 5px;
+      font-size: 15px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: .25s;
+    }
+
+    .nav-links a:hover { color: #e21b23; }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      width: min(1100px, 90%);
+      text-align: center;
+      padding-top: 60px;
+      animation: rise 1s ease both;
+    }
+
+    .logo {
+      width: min(520px, 80vw);
+      max-height: 270px;
+      object-fit: contain;
+      filter: drop-shadow(0 16px 35px rgba(0,0,0,.75));
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      color: #d5d5d5;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 92px);
+      line-height: .92;
+      font-weight: 900;
+      letter-spacing: -4px;
+      text-transform: uppercase;
+      text-shadow: 0 12px 40px rgba(0,0,0,.75);
+    }
+
+    .hero h1 span { color: #e21b23; }
+
+    .hero p {
+      max-width: 650px;
+      margin: 22px auto 34px;
+      color: #c7c7c7;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 210px;
+      padding: 16px 25px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: transform .25s, box-shadow .25s, background .25s;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: #c9141c;
+      box-shadow: 0 12px 35px rgba(201,20,28,.25);
+    }
+
+    .btn-primary:hover {
+      background: #ed1d27;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(201,20,28,.4);
+    }
+
+    .btn-secondary {
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,.1);
+      transform: translateY(-3px);
+    }
+
+    .scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 6;
+      color: rgba(255,255,255,.55);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .scroll::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 35px;
+      margin: 10px auto 0;
+      background: #c9141c;
+      animation: pulse 1.5s infinite;
+    }
+
+    section {
+      position: relative;
+      padding: 110px 7vw;
+      background: #070707;
+    }
+
+    .section-title {
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .section-title small {
+      color: #e21b23;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .section-title h2 {
+      margin-top: 14px;
+      font-size: clamp(34px, 5vw, 62px);
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+
+    .section-title p {
+      margin: 20px auto 0;
+      color: #999;
+      max-width: 650px;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .cards {
+      max-width: 1100px;
+      margin: 55px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      min-height: 210px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(145deg, #101010, #080808);
+      transition: .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(226,27,35,.55);
+    }
+
+    .card-number {
+      color: #e21b23;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .card h3 {
+      margin: 35px 0 12px;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      color: #858585;
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 35px 7vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: #030303;
+      color: #666;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    footer strong { color: #fff; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: .3; transform: scaleY(.7); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    @media (max-width: 700px) {
+      nav { height: 70px; padding: 0 22px; }
+      .nav-links { display: none; }
+      .hero { min-height: 850px; }
+      .hero-content { padding-top: 20px; }
+      .logo { width: 88vw; }
+      .hero h1 { letter-spacing: -2px; }
+      .hero p { font-size: 13px; }
+      .btn { width: 100%; max-width: 330px; }
+      .cards { grid-template-columns: 1fr; }
+      section { padding: 80px 22px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero" id="inicio">
+    <div class="noise"></div>
+
+    <nav>
+      <div class="nav-brand">CAPITAL RP</div>
+      <ul class="nav-links">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#experiencia">Experiência</a></li>
+      </ul>
+      <a class="btn btn-primary" style="min-width:auto;padding:11px 17px"
+         href="https://discord.gg/U6xhEnrpv" target="_blank" rel="noopener noreferrer">Discord</a>
+    </nav>
+
+    <main class="hero-content">
+      <div class="eyebrow">Roblox Roleplay</div>
+      <img class="logo" src="assets/capital-logo.png" alt="Capital RP">
+      <h1>Viva sua <span>história.</span></h1>
+      <p>
+        Entre no Capital RP e construa sua própria história.
+        Escolha seu caminho, conheça novos jogadores e faça parte de uma cidade
+        criada para uma experiência de Roleplay marcante.
+      </p>
+
+      <div class="buttons">
+        <a class="btn btn-primary" href="https://discord.gg/U6xhEnrpv"
+           target="_blank" rel="noopener noreferrer">Entrar no Discord</a>
+        <a class="btn btn-secondary" href="#sobre">Conhecer o projeto</a>
+      </div>
+    </main>
+
+    <div class="scroll">Explorar</div>
+  </header>
+
+  <section id="sobre">
+    <div class="section-title">
+      <small>Capital RP</small>
+      <h2>Uma cidade. Mil histórias.</h2>
+      <p>
+        Um projeto de Roleplay para Roblox focado em imersão, interação entre
+        jogadores e uma experiência urbana dinâmica.
+      </p>
+    </div>
+
+    <div class="cards" id="experiencia">
+      <article class="card">
+        <div class="card-number">01 / ROLEPLAY</div>
+        <h3>Crie sua história</h3>
+        <p>Escolha seu caminho e desenvolva seu personagem dentro da cidade.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-number">02 / COMUNIDADE</div>
+        <h3>Faça parte</h3>
+        <p>Conecte-se com a comunidade e participe das novidades do projeto pelo Discord.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-number">03 / CAPITAL</div>
+        <h3>Viva a cidade</h3>
+        <p>Explore, interaja e participe de uma experiência de Roleplay construída para o Roblox.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <div><strong>CAPITAL RP</strong> — Roblox Roleplay</div>
+    <div>© 2026 Capital RP. Todos os direitos reservados.</div>
+  </footer>
+
+</body>
+</html>
+'''
+
+(base / "index.html").write_text(html, encoding="utf-8")
+
+zip_path = Path("/mnt/data/Capital-RP-Site.zip")
+with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+    for file in base.rglob("*"):
+        if file.is_file():
+            z.write(file, file.relative_to(base))
+
+print(f"Site criado: {zip_path}")
+print("Arquivos incluídos: index.html + assets/capital-logo.png + assets/capital-background.png")
