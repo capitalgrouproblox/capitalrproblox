@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Capital RP</title>
 
 <style>
+
+/* =========================
+   BASE
+========================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
@@ -20,23 +27,35 @@ html {
 
 body {
     background: #050505;
-    color: white;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
 }
 
-/* NAVBAR */
+
+/* =========================
+   HEADER
+========================= */
 
 header {
     position: fixed;
+
     top: 0;
+    left: 0;
+
     width: 100%;
     height: 75px;
+
     padding: 0 7%;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     z-index: 1000;
 
-    background: rgba(0,0,0,0.72);
+    background: rgba(0, 0, 0, 0.72);
+
     backdrop-filter: blur(14px);
 
     border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -45,19 +64,24 @@ header {
 .logo {
     display: flex;
     align-items: center;
+
     gap: 12px;
 }
 
 .logo img {
     width: 45px;
     height: 45px;
+
     object-fit: cover;
+
     border-radius: 50%;
 }
 
 .logo h1 {
     font-size: 19px;
+
     letter-spacing: 3px;
+
     font-weight: 800;
 }
 
@@ -65,17 +89,27 @@ header {
     color: #d00000;
 }
 
+
+/* =========================
+   NAV
+========================= */
+
 nav {
     display: flex;
+
     gap: 30px;
 }
 
 nav a {
-    color: #ddd;
+    color: #dddddd;
+
     text-decoration: none;
+
     font-size: 13px;
+
     letter-spacing: 1px;
-    transition: 0.3s;
+
+    transition: color 0.3s ease;
 }
 
 nav a:hover {
@@ -83,12 +117,15 @@ nav a:hover {
 }
 
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero {
     min-height: 100vh;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -104,12 +141,17 @@ nav a:hover {
         url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSThyA936E9UhyQCc0Hdw5I1A59Jr3qXc1KUzOK21h4MXo-FmTLby7oI9cf&s=10");
 
     background-size: cover;
+
     background-position: center;
+
     background-attachment: fixed;
 }
 
 .hero-content {
     max-width: 900px;
+
+    animation:
+        heroEntrada 1s ease-out forwards;
 }
 
 .hero-logo {
@@ -126,6 +168,9 @@ nav a:hover {
 
     box-shadow:
         0 0 40px rgba(180,0,0,0.4);
+
+    animation:
+        logoEntrada 1.1s ease-out forwards;
 }
 
 .hero h2 {
@@ -157,7 +202,9 @@ nav a:hover {
 }
 
 
-/* DISCORD BUTTON */
+/* =========================
+   BOTÃO DISCORD
+========================= */
 
 .discord-button {
     display: inline-flex;
@@ -171,7 +218,7 @@ nav a:hover {
 
     background: #b40000;
 
-    color: white;
+    color: #ffffff;
 
     text-decoration: none;
 
@@ -183,7 +230,10 @@ nav a:hover {
 
     letter-spacing: 1.5px;
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 
     box-shadow:
         0 10px 35px rgba(150,0,0,0.25);
@@ -192,14 +242,16 @@ nav a:hover {
 .discord-button:hover {
     background: #df0000;
 
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 
     box-shadow:
         0 15px 40px rgba(180,0,0,0.4);
 }
 
 
-/* SECTIONS */
+/* =========================
+   SEÇÕES
+========================= */
 
 section {
     padding: 110px 8%;
@@ -220,7 +272,30 @@ section {
 }
 
 
-/* SOBRE */
+/* =========================
+   ANIMAÇÃO DE SCROLL
+========================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(28px);
+
+    transition:
+        opacity 0.75s ease,
+        transform 0.75s ease;
+}
+
+.reveal.show {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================
+   SOBRE
+========================= */
 
 .about {
     background:
@@ -238,7 +313,7 @@ section {
 
     margin: auto;
 
-    color: #999;
+    color: #999999;
 
     line-height: 1.9;
 
@@ -246,7 +321,9 @@ section {
 }
 
 
-/* CARDS */
+/* =========================
+   CARDS
+========================= */
 
 .cards {
     max-width: 1100px;
@@ -272,7 +349,10 @@ section {
 
     text-align: center;
 
-    transition: 0.3s;
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease;
 }
 
 .card:hover {
@@ -280,7 +360,7 @@ section {
 
     border-color: #8d0000;
 
-    background: #111;
+    background: #111111;
 }
 
 .card .icon {
@@ -296,7 +376,7 @@ section {
 }
 
 .card p {
-    color: #888;
+    color: #888888;
 
     font-size: 14px;
 
@@ -304,7 +384,30 @@ section {
 }
 
 
-/* STATUS */
+/* =========================
+   CARDS COM ATRASO
+========================= */
+
+.card:nth-child(1).show {
+    transition-delay: 0.05s;
+}
+
+.card:nth-child(2).show {
+    transition-delay: 0.12s;
+}
+
+.card:nth-child(3).show {
+    transition-delay: 0.19s;
+}
+
+.card:nth-child(4).show {
+    transition-delay: 0.26s;
+}
+
+
+/* =========================
+   STATUS
+========================= */
 
 .status {
     background: #080808;
@@ -327,9 +430,19 @@ section {
 
     background: #101010;
 
-    border: 1px solid #222;
+    border: 1px solid #222222;
 
     border-radius: 8px;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.status-box:hover {
+    transform: translateY(-3px);
+
+    border-color: #650000;
 }
 
 .status-info h3 {
@@ -337,7 +450,7 @@ section {
 }
 
 .status-info p {
-    color: #777;
+    color: #777777;
 }
 
 .online {
@@ -367,7 +480,9 @@ section {
 }
 
 
-/* CTA */
+/* =========================
+   CTA
+========================= */
 
 .cta {
     min-height: 400px;
@@ -398,20 +513,22 @@ section {
 }
 
 .cta p {
-    color: #999;
+    color: #999999;
 
     margin-bottom: 20px;
 }
 
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     padding: 30px;
 
     text-align: center;
 
-    color: #555;
+    color: #555555;
 
     font-size: 12px;
 
@@ -425,7 +542,50 @@ footer strong {
 }
 
 
-/* MOBILE */
+/* =========================
+   ANIMAÇÕES INICIAIS
+========================= */
+
+@keyframes heroEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+@keyframes logoEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
 
@@ -473,21 +633,28 @@ footer strong {
     .cta h2 {
         font-size: 32px;
     }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
     <div class="logo">
 
         <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSThyA936E9UhyQCc0Hdw5I1A59Jr3qXc1KUzOK21h4MXo-FmTLby7oI9cf&s=10"
-        alt="Capital RP">
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSThyA936E9UhyQCc0Hdw5I1A59Jr3qXc1KUzOK21h4MXo-FmTLby7oI9cf&s=10"
+            alt="Capital RP"
+        >
 
         <h1>
             CAPITAL <span>RP</span>
@@ -495,30 +662,49 @@ footer strong {
 
     </div>
 
+
     <nav>
-        <a href="#inicio">INÍCIO</a>
-        <a href="#sobre">SOBRE</a>
-        <a href="#recursos">RECURSOS</a>
-        <a href="#status">STATUS</a>
+
+        <a href="#inicio">
+            INÍCIO
+        </a>
+
+        <a href="#sobre">
+            SOBRE
+        </a>
+
+        <a href="#recursos">
+            RECURSOS
+        </a>
+
+        <a href="#status">
+            STATUS
+        </a>
+
     </nav>
 
 </header>
 
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero" id="inicio">
 
     <div class="hero-content">
 
         <img
-        class="hero-logo"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSThyA936E9UhyQCc0Hdw5I1A59Jr3qXc1KUzOK21h4MXo-FmTLby7oI9cf&s=10"
-        alt="Capital RP">
+            class="hero-logo"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSThyA936E9UhyQCc0Hdw5I1A59Jr3qXc1KUzOK21h4MXo-FmTLby7oI9cf&s=10"
+            alt="Capital RP"
+        >
+
 
         <h2>
             CAPITAL <span>RP</span>
         </h2>
+
 
         <p>
             Uma nova experiência de Roleplay está chegando.
@@ -526,16 +712,14 @@ footer strong {
             e faça parte da cidade.
         </p>
 
-        <!-- ÚNICO BOTÃO -->
 
         <a
-        href="https://discord.gg/y3fMatf8k"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="discord-button">
-
+            href="https://discord.gg/y3fMatf8k"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="discord-button"
+        >
             ENTRAR NO DISCORD
-
         </a>
 
     </div>
@@ -543,40 +727,71 @@ footer strong {
 </section>
 
 
-<!-- SOBRE -->
+<!-- =========================
+     SOBRE
+========================= -->
 
-<section class="about" id="sobre">
+<section
+    class="about"
+    id="sobre"
+>
 
-    <h2 class="section-title">
-        SOBRE O <span>CAPITAL RP</span>
-    </h2>
+    <div class="reveal">
 
-    <p>
-        O Capital RP é um projeto focado em proporcionar
-        uma experiência de Roleplay moderna e organizada
-        dentro do Roblox. Nosso objetivo é criar uma cidade
-        dinâmica, com sistemas próprios, organizações,
-        empregos e uma comunidade ativa.
-    </p>
+        <h2 class="section-title">
+
+            SOBRE O
+            <span>CAPITAL RP</span>
+
+        </h2>
+
+
+        <p>
+
+            O Capital RP é um projeto focado em proporcionar
+            uma experiência de Roleplay moderna e organizada
+            dentro do Roblox. Nosso objetivo é criar uma cidade
+            dinâmica, com sistemas próprios, organizações,
+            empregos e uma comunidade ativa.
+
+        </p>
+
+    </div>
 
 </section>
 
 
-<!-- RECURSOS -->
+<!-- =========================
+     RECURSOS
+========================= -->
 
 <section id="recursos">
 
-    <h2 class="section-title">
-        RECURSOS DO <span>PROJETO</span>
-    </h2>
+
+    <div class="reveal">
+
+        <h2 class="section-title">
+
+            RECURSOS DO
+            <span>PROJETO</span>
+
+        </h2>
+
+    </div>
+
 
     <div class="cards">
 
-        <div class="card">
 
-            <div class="icon">🚔</div>
+        <div class="card reveal">
 
-            <h3>Segurança Pública</h3>
+            <div class="icon">
+                🚔
+            </div>
+
+            <h3>
+                Segurança Pública
+            </h3>
 
             <p>
                 Polícia e organizações responsáveis
@@ -586,11 +801,15 @@ footer strong {
         </div>
 
 
-        <div class="card">
+        <div class="card reveal">
 
-            <div class="icon">🏥</div>
+            <div class="icon">
+                🏥
+            </div>
 
-            <h3>Serviço Médico</h3>
+            <h3>
+                Serviço Médico
+            </h3>
 
             <p>
                 Atendimento médico e sistema
@@ -600,11 +819,15 @@ footer strong {
         </div>
 
 
-        <div class="card">
+        <div class="card reveal">
 
-            <div class="icon">🚗</div>
+            <div class="icon">
+                🚗
+            </div>
 
-            <h3>Veículos</h3>
+            <h3>
+                Veículos
+            </h3>
 
             <p>
                 Diversos veículos para utilização
@@ -614,11 +837,15 @@ footer strong {
         </div>
 
 
-        <div class="card">
+        <div class="card reveal">
 
-            <div class="icon">💼</div>
+            <div class="icon">
+                💼
+            </div>
 
-            <h3>Empregos</h3>
+            <h3>
+                Empregos
+            </h3>
 
             <p>
                 Trabalhe, conquiste dinheiro e
@@ -627,26 +854,37 @@ footer strong {
 
         </div>
 
+
     </div>
 
 </section>
 
 
-<!-- STATUS -->
+<!-- =========================
+     STATUS
+========================= -->
 
-<section class="status" id="status">
+<section
+    class="status"
+    id="status"
+>
 
-    <div class="status-box">
+
+    <div class="status-box reveal">
+
 
         <div class="status-info">
 
-            <h3>CAPITAL RP</h3>
+            <h3>
+                CAPITAL RP
+            </h3>
 
             <p>
                 Status atual do projeto
             </p>
 
         </div>
+
 
         <div class="online">
 
@@ -656,44 +894,125 @@ footer strong {
 
         </div>
 
+
     </div>
 
 </section>
 
 
-<!-- CTA -->
+<!-- =========================
+     CTA
+========================= -->
 
 <section class="cta">
 
-    <h2>
-        FAÇA PARTE DA CIDADE
-    </h2>
 
-    <p>
-        Prepare-se para viver uma nova história.
-    </p>
+    <div class="reveal">
 
-    <a
-    href="https://discord.gg/y3fMatf8k"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="discord-button">
+        <h2>
+            FAÇA PARTE DA CIDADE
+        </h2>
 
-        ENTRAR NO DISCORD
 
-    </a>
+        <p>
+            Prepare-se para viver uma nova história.
+        </p>
+
+
+        <a
+            href="https://discord.gg/y3fMatf8k"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="discord-button"
+        >
+            ENTRAR NO DISCORD
+        </a>
+
+    </div>
+
 
 </section>
 
 
-<!-- FOOTER -->
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
-    © 2026 <strong>Capital RP</strong>.
+    © 2026
+    <strong>Capital RP</strong>.
     Todos os direitos reservados.
 
 </footer>
 
+
+<!-- =========================
+     ANIMAÇÃO DE SCROLL
+========================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const elementos =
+            document.querySelectorAll(".reveal");
+
+
+        const observer =
+            new IntersectionObserver(
+
+                function (entries) {
+
+                    entries.forEach(
+                        function (entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "show"
+                                );
+
+                            } else {
+
+                                entry.target.classList.remove(
+                                    "show"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold: 0.15
+                }
+
+            );
+
+
+        elementos.forEach(
+            function (elemento) {
+
+                observer.observe(
+                    elemento
+                );
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+
 </body>
+
 </html>
